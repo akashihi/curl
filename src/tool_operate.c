@@ -2274,19 +2274,11 @@ static CURLcode operate_transfers(struct GlobalConfig *global,
       result = serial_transfers(global, share);
   }
 
-  if(result) {
-    fprintf(stderr, "====> This happened on line %s:%d\n",
-            __FILE__, __LINE__);
-  }
-
   /* cleanup if there are any left */
   for(per = transfers; per;) {
     bool retry;
     result = post_transfer(global, per, result, &retry);
-    if(result) {
-      fprintf(stderr, "====> This happened on line %s:%d\n",
-              __FILE__, __LINE__);
-    }
+
     /* Free list of given URLs */
     clean_getout(per->config);
 
