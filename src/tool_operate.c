@@ -2277,7 +2277,10 @@ static CURLcode operate_transfers(struct GlobalConfig *global,
   /* cleanup if there are any left */
   for(per = transfers; per;) {
     bool retry;
-    result = post_transfer(global, per, result, &retry);
+    CURLcode result2 = post_transfer(global, per, result, &retry);
+    if(!result)
+      /* don't overwrite the original error */
+      result = result2;
 
     /* Free list of given URLs */
     clean_getout(per->config);
